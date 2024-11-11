@@ -24,4 +24,4 @@ tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
 
 [dev-dependencies]
 hyper = { version = "0.14.29", features = ["full"] }
-tower = "0.4.13"
+tower = "0.5.0"
