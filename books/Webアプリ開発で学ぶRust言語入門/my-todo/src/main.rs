@@ -92,8 +92,7 @@ mod tests {
             .unwrap();
         let body = String::from_utf8(bytes.to_vec()).unwrap();
 
-        serde_json::from_str(&body)
-            .unwrap_or_else(|_| panic!("cannot convert Todo instance. body: {body}"))
+        serde_json::from_str(&body).expect(&format!("cannot convert Todo instance. body: {body}"))
     }
 
     #[tokio::test]
