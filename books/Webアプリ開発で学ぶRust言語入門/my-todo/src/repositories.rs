@@ -32,13 +32,13 @@ impl Todo {
 
 #[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct CreateTodo {
-    text: String,
+    pub text: String,
 }
 
 #[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct UpdateTodo {
-    text: Option<String>,
-    completed: Option<bool>,
+    pub text: Option<String>,
+    pub completed: Option<bool>,
 }
 
 pub trait TodoRepository: Clone + Send + Sync + 'static {
@@ -97,7 +97,7 @@ impl TodoRepository for TodoRepositoryForMemory {
         let todo = store.get(&id).context(RepositoryError::NotFound(id))?;
 
         let text = payload.text.unwrap_or_else(|| todo.text.clone());
-        let completed = payload.completed.unwrap_or_else(|| todo.completed);
+        let completed = payload.completed.unwrap_or(todo.completed);
         let todo = Todo {
             id,
             text,
