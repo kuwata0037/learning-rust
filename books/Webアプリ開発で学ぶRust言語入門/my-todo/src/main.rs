@@ -3,7 +3,7 @@ use std::{
     sync::Arc,
 };
 
-use axum::{http::StatusCode, response::IntoResponse, routing, Extension, Json, Router};
+use axum::{routing, Extension, Router};
 use handlers::create_todo;
 use repositories::{TodoRepository, TodoRepositoryForMemory};
 use tracing_subscriber::{filter::LevelFilter, layer::SubscriberExt, util::SubscriberInitExt};
