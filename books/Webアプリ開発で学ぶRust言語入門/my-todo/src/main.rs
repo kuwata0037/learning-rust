@@ -35,7 +35,6 @@ async fn main() {
 fn create_app<T: TodoRepository>(repository: T) -> Router {
     Router::new()
         .route("/", routing::get(root))
-        .route("/users", routing::post(create_user))
         .route("/todos", routing::post(create_todo::<T>))
         .layer(Extension(Arc::new(repository)))
 }
@@ -51,26 +50,6 @@ async fn create_todo<T: TodoRepository>(
     let todo = repository.create(payload);
 
     (StatusCode::CREATED, Json(todo))
-}
-
-#[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
-struct User {
-    id: u64,
-    user_name: String,
-}
-
-#[derive(Debug, Deserialize)]
-struct CreateUser {
-    user_name: String,
-}
-
-async fn create_user(Json(payload): Json<CreateUser>) -> impl IntoResponse {
-    let user = User {
-        id: 1337,
-        user_name: payload.user_name,
-    };
-
-    (StatusCode::CREATED, Json(user))
 }
 
 #[derive(Debug, Error)]
@@ -154,13 +133,7 @@ impl TodoRepository for TodoRepositoryForMemory {
 
 #[cfg(test)]
 mod tests {
-    use std::usize;
-
-    use axum::{
-        body::Body,
-        extract::Request,
-        http::{header, method},
-    };
+    use axum::{body::Body, extract::Request};
     use tower::ServiceExt;
 
     use super::*;
@@ -177,31 +150,6 @@ mod tests {
         let bytes = axum::body::to_bytes(res.into_body(), usize::MAX).await?;
         let body = String::from_utf8(bytes.to_vec())?;
         assert_eq!(body, "Hello, world!");
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn should_return_user_data() -> Result<(), BoxError> {
-        let repository = TodoRepositoryForMemory::new();
-        let req = Request::builder()
-            .uri("/users")
-            .method(method::Method::POST)
-            .header(header::CONTENT_TYPE, mime::APPLICATION_JSON.as_ref())
-            .body(Body::from(r#"{ "user_name": "田中 太郎" }"#))?;
-
-        let res = create_app(repository).oneshot(req).await?;
-
-        let bytes = axum::body::to_bytes(res.into_body(), usize::MAX).await?;
-        let body = String::from_utf8(bytes.to_vec())?;
-        let user: User = serde_json::from_str(&body)?;
-        assert_eq!(
-            user,
-            User {
-                id: 1337,
-                user_name: "田中 太郎".to_string(),
-            }
-        );
 
         Ok(())
     }
