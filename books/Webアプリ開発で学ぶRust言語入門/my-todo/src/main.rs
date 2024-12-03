@@ -1,13 +1,15 @@
 use std::{
-    collections::HashMap,
     net::{Ipv4Addr, SocketAddr},
-    sync::{Arc, RwLock},
+    sync::Arc,
 };
 
 use axum::{http::StatusCode, response::IntoResponse, routing, Extension, Json, Router};
-use serde::{Deserialize, Serialize};
-use thiserror::Error;
+use handlers::create_todo;
+use repositories::{TodoRepository, TodoRepositoryForMemory};
 use tracing_subscriber::{filter::LevelFilter, layer::SubscriberExt, util::SubscriberInitExt};
+
+mod handlers;
+mod repositories;
 
 #[tokio::main]
 async fn main() {
@@ -41,94 +43,6 @@ fn create_app<T: TodoRepository>(repository: T) -> Router {
 
 async fn root() -> &'static str {
     "Hello, world!"
-}
-
-async fn create_todo<T: TodoRepository>(
-    Extension(repository): Extension<Arc<T>>,
-    Json(payload): Json<CreateTodo>,
-) -> impl IntoResponse {
-    let todo = repository.create(payload);
-
-    (StatusCode::CREATED, Json(todo))
-}
-
-#[derive(Debug, Error)]
-enum RepositoryError {
-    #[error("Not Found, id is {0}")]
-    NotFound(i32),
-}
-
-#[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
-struct Todo {
-    id: i32,
-    text: String,
-    completed: bool,
-}
-
-impl Todo {
-    fn new(id: i32, text: String) -> Self {
-        Self {
-            id,
-            text,
-            completed: false,
-        }
-    }
-}
-
-#[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
-struct CreateTodo {
-    text: String,
-}
-
-#[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
-struct UpdateTodo {
-    text: Option<String>,
-    completed: Option<bool>,
-}
-
-trait TodoRepository: Clone + Send + Sync + 'static {
-    fn create(&self, payload: CreateTodo) -> Todo;
-    fn find(&self, id: i32) -> Option<Todo>;
-    fn all(&self) -> Vec<Todo>;
-    fn update(&self, id: i32, payload: UpdateTodo) -> anyhow::Result<Todo>;
-    fn delete(&self, id: i32) -> anyhow::Result<()>;
-}
-
-type TodoData = HashMap<i32, Todo>;
-
-#[derive(Debug, Clone)]
-struct TodoRepositoryForMemory {
-    store: Arc<RwLock<TodoData>>,
-}
-
-impl TodoRepositoryForMemory {
-    fn new() -> Self {
-        Self {
-            store: Arc::default(),
-        }
-    }
-}
-
-impl TodoRepository for TodoRepositoryForMemory {
-    fn create(&self, payload: CreateTodo) -> Todo {
-        todo!()
-    }
-
-    fn find(&self, id: i32) -> Option<Todo> {
-        todo!()
-    }
-
-    fn all(&self) -> Vec<Todo> {
-        todo!()
-    }
-
-    fn update(&self, id: i32, payload: UpdateTodo) -> anyhow::Result<Todo> {
-        todo!()
-    }
-
-    fn delete(&self, id: i32) -> anyhow::Result<()> {
-        todo!()
-    }
 }
 
 #[cfg(test)]
