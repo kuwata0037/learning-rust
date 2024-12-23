@@ -9,13 +9,13 @@ edition.workspace = true
 [dependencies]
 anyhow = { version = "1.0.93", features = ["backtrace"] }
 fake = { version = "3.0.1", features = ["derive"] }
-opentelemetry = "0.23.0"
-opentelemetry-otlp = "0.16.0"
-opentelemetry_sdk = { version = "0.23.0", features = ["rt-tokio"] }
+opentelemetry = "0.27.1"
+opentelemetry-otlp = "0.27.0"
+opentelemetry_sdk = { version = "0.27.1", features = ["rt-tokio"] }
 thiserror = "1.0.64"
 tokio = { version = "1.42.0", features = ["full"] }
 tracing = "0.1.40"
-tracing-opentelemetry = "0.24.0"
+tracing-opentelemetry = "0.28.0"
 tracing-subscriber = { version = "0.3.18", features = ["json", "env-filter"] }
 
 [dev-dependencies]
