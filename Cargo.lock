@@ -1110,6 +1110,7 @@ dependencies = [
  "tower 0.5.1",
  "tracing",
  "tracing-subscriber",
+ "validator",
 ]
 
 [[package]]
