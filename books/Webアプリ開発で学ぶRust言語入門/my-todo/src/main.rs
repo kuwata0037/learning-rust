@@ -129,9 +129,12 @@ mod tests {
     async fn should_find_todo() {
         let repository = TodoRepositoryForMemory::new();
 
-        repository.create(CreateTodo {
-            text: "should_find_todo".to_string(),
-        });
+        repository
+            .create(CreateTodo {
+                text: "should_find_todo".to_string(),
+            })
+            .await
+            .expect("failed create todo");
 
         let request = build_request_with_empty("/todos/1", method::Method::GET);
         let response = create_app(repository).oneshot(request).await.unwrap();
@@ -143,9 +146,12 @@ mod tests {
     #[tokio::test]
     async fn should_get_all_todos() {
         let repository = TodoRepositoryForMemory::new();
-        repository.create(CreateTodo {
-            text: "should_get_all_todos".to_string(),
-        });
+        repository
+            .create(CreateTodo {
+                text: "should_get_all_todos".to_string(),
+            })
+            .await
+            .expect("failed create todo");
 
         let request = build_request_with_empty("/todos", method::Method::GET);
 
@@ -164,9 +170,12 @@ mod tests {
     #[tokio::test]
     async fn should_update_todo() {
         let repository = TodoRepositoryForMemory::new();
-        repository.create(CreateTodo {
-            text: "before_update_todo".to_string(),
-        });
+        repository
+            .create(CreateTodo {
+                text: "before_update_todo".to_string(),
+            })
+            .await
+            .expect("failed create todo");
 
         let request = build_request_with_json(
             "/todos/1",
@@ -184,9 +193,12 @@ mod tests {
     #[tokio::test]
     async fn should_delete_todo() {
         let repository = TodoRepositoryForMemory::new();
-        repository.create(CreateTodo {
-            text: "should_delete_todo".to_string(),
-        });
+        repository
+            .create(CreateTodo {
+                text: "should_delete_todo".to_string(),
+            })
+            .await
+            .expect("failed create todo");
         let request = build_request_with_empty("/todos/1", method::Method::DELETE);
 
         let response = create_app(repository).oneshot(request).await.unwrap();
