@@ -10,6 +10,16 @@ use super::{CreateTodo, RepositoryError, Todo, TodoRepository, UpdateTodo};
 
 type TodoData = HashMap<i32, Todo>;
 
+impl Todo {
+    pub fn new(id: i32, text: String) -> Self {
+        Self {
+            id,
+            text,
+            completed: false,
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct TodoRepositoryForMemory {
     store: Arc<RwLock<TodoData>>,
