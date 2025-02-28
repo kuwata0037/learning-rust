@@ -6,7 +6,7 @@ use std::{
 use axum::{routing, Extension, Router};
 use dotenvy::dotenv;
 use handlers::{all_todos, create_todo, delete_todo, find_todo, update_todo};
-use repositories::{TodoRepository, TodoRepositoryForDb};
+use repositories::{database::TodoRepositoryForDb, TodoRepository};
 use sqlx::PgPool;
 use tracing_subscriber::{filter::LevelFilter, layer::SubscriberExt, util::SubscriberInitExt};
 
@@ -75,7 +75,7 @@ mod tests {
     use repositories::{CreateTodo, Todo};
     use tower::ServiceExt;
 
-    use crate::repositories::TodoRepositoryForMemory;
+    use crate::repositories::memory::TodoRepositoryForMemory;
 
     use super::*;
 
