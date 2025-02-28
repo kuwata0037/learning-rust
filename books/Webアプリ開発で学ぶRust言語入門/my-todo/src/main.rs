@@ -30,7 +30,7 @@ async fn main() {
     let database_url = std::env::var("DATABASE_URL").expect("undefined [DATABASE_URL]");
     let pool = PgPool::connect(&database_url)
         .await
-        .expect(&format!("fail connect database, url is [{database_url}]"));
+        .unwrap_or_else(|_| panic!("fail connect database, url is [{database_url}]"));
     let repository = TodoRepositoryForDb::new(pool);
 
     let app = create_app(repository);
@@ -104,7 +104,7 @@ mod tests {
             .unwrap();
         let body = String::from_utf8(bytes.to_vec()).unwrap();
 
-        serde_json::from_str(&body).expect(&format!("cannot convert Todo instance. body: {body}"))
+        serde_json::from_str(&body).unwrap_or_else(|_| panic!("cannot convert Todo instance. body: {body}"))
     }
 
     #[tokio::test]

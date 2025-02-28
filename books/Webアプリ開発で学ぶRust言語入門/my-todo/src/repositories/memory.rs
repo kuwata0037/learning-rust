@@ -58,7 +58,7 @@ impl TodoRepository for TodoRepositoryForMemory {
         let todo = store
             .get(&id)
             .cloned()
-            .ok_or_else(|| RepositoryError::NotFound(id))?;
+            .ok_or(RepositoryError::NotFound(id))?;
         Ok(todo)
     }
 
