@@ -4,8 +4,10 @@ use std::{
 };
 
 use axum::{routing, Extension, Router};
+use dotenvy::dotenv;
 use handlers::{all_todos, create_todo, delete_todo, find_todo, update_todo};
-use repositories::{TodoRepository, TodoRepositoryForMemory};
+use repositories::{TodoRepository, TodoRepositoryForDb};
+use sqlx::PgPool;
 use tracing_subscriber::{filter::LevelFilter, layer::SubscriberExt, util::SubscriberInitExt};
 
 mod handlers;
@@ -13,6 +15,8 @@ mod repositories;
 
 #[tokio::main]
 async fn main() {
+    dotenv().ok();
+
     tracing_subscriber::registry()
         .with(
             tracing_subscriber::EnvFilter::builder()
@@ -22,7 +26,13 @@ async fn main() {
         .with(tracing_subscriber::fmt::layer())
         .init();
 
-    let repository = TodoRepositoryForMemory::new();
+    tracing::info!("start connect database...");
+    let database_url = std::env::var("DATABASE_URL").expect("undefined [DATABASE_URL]");
+    let pool = PgPool::connect(&database_url)
+        .await
+        .expect(&format!("fail connect database, url is [{database_url}]"));
+    let repository = TodoRepositoryForDb::new(pool);
+
     let app = create_app(repository);
 
     let addr = SocketAddr::from((Ipv4Addr::LOCALHOST, 3000));
@@ -64,6 +74,8 @@ mod tests {
     };
     use repositories::{CreateTodo, Todo};
     use tower::ServiceExt;
+
+    use crate::repositories::TodoRepositoryForMemory;
 
     use super::*;
 

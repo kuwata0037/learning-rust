@@ -6,6 +6,7 @@ use std::{
 use anyhow::Context;
 use axum::async_trait;
 use serde::{Deserialize, Serialize};
+use sqlx::PgPool;
 use thiserror::Error;
 use validator::Validate;
 
@@ -124,6 +125,40 @@ impl TodoRepository for TodoRepositoryForMemory {
         let mut store = self.write_store_ref();
         store.remove(&id).ok_or(RepositoryError::NotFound(id))?;
         Ok(())
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct TodoRepositoryForDb {
+    pool: PgPool,
+}
+
+impl TodoRepositoryForDb {
+    pub fn new(pool: PgPool) -> Self {
+        Self { pool }
+    }
+}
+
+#[async_trait]
+impl TodoRepository for TodoRepositoryForDb {
+    async fn create(&self, payload: CreateTodo) -> anyhow::Result<Todo> {
+        todo!()
+    }
+
+    async fn find(&self, id: i32) -> anyhow::Result<Todo> {
+        todo!()
+    }
+
+    async fn all(&self) -> anyhow::Result<Vec<Todo>> {
+        todo!()
+    }
+
+    async fn update(&self, id: i32, payload: UpdateTodo) -> anyhow::Result<Todo> {
+        todo!()
+    }
+
+    async fn delete(&self, id: i32) -> anyhow::Result<()> {
+        todo!()
     }
 }
 
