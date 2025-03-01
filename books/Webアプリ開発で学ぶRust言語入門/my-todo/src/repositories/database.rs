@@ -93,13 +93,13 @@ impl TodoRepository for TodoRepositoryForDb {
 }
 
 #[cfg(test)]
-#[cfg(feature = "database-test")]
 mod tests {
     use dotenvy::dotenv;
 
     use super::*;
 
     #[tokio::test]
+    #[ignore = "run only when database is available"]
     async fn crud_scenario() {
         dotenv().ok();
         let database_url = std::env::var("DATABASE_URL").expect("undefined [DATABASE_URL]");
