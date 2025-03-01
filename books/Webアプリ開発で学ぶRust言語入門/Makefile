@@ -1,19 +1,19 @@
 .PHONY: up
 up:
-	cd my-todo && docker-compose up -d
+	docker compose up -d
 
 .PHONY: down
 down:
-	cd my-todo && docker-compose down
+	docker compose down
 
 .PHONY: dev
 dev: migrate
-	cd my-todo && cargo run
+	cargo run --manifest-path my-todo/Cargo.toml
 
 .PHONY: migrate
 migrate:
-	cd my-todo && sqlx migrate run
+	sqlx migrate run
 
 .PHONY: test
 test:
-	cd my-todo && cargo nextest run
+	cargo nextest run --manifest-path my-todo/Cargo.toml
