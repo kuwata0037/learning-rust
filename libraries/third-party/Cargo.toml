@@ -12,7 +12,7 @@ fake = { version = "4.0.0", features = ["derive"] }
 opentelemetry = "0.23.0"
 opentelemetry-otlp = "0.16.0"
 opentelemetry_sdk = { version = "0.23.0", features = ["rt-tokio"] }
-thiserror = "1.0.64"
+thiserror = "2.0.3"
 tokio = { version = "1.42.0", features = ["full"] }
 tracing = "0.1.40"
 tracing-opentelemetry = "0.24.0"
