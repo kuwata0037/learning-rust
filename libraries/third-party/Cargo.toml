@@ -28,7 +28,7 @@ proptest = "1.6.0"
 proptest-derive = "0.5.1"
 rstest = "0.22.0"
 serde = { version = "1.0.218", features = ["derive"] }
-validator = { version = "0.16.1", features = ["derive", "phone"] }
+validator = { version = "0.20.0", features = ["derive"] }
 
 [[bench]]
 name = "criterion"
