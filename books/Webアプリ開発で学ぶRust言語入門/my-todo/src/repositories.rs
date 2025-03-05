@@ -25,15 +25,13 @@ pub struct Todo {
 
 #[derive(Debug, PartialEq, Eq, Serialize, Deserialize, Validate)]
 pub struct CreateTodo {
-    #[validate(length(min = 1, message = "Can not be empty"))]
-    #[validate(length(max = 100, message = "Over text length"))]
+    #[validate(length(min = 1, max = 100, message = "Can not be empty or Over text length"))]
     pub text: String,
 }
 
 #[derive(Debug, PartialEq, Eq, Serialize, Deserialize, Validate)]
 pub struct UpdateTodo {
-    #[validate(length(min = 1, message = "Can not be empty"))]
-    #[validate(length(max = 100, message = "Over text length"))]
+    #[validate(length(min = 1, max = 100, message = "Can not be empty or Over text length"))]
     pub text: Option<String>,
     pub completed: Option<bool>,
 }

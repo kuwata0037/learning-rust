@@ -1,12 +1,22 @@
 #[cfg(test)]
 mod tests {
-    use validator::{Validate, ValidationErrors};
+    use std::borrow::Cow;
+
+    use validator::{Validate, ValidationError, ValidationErrors};
+
+    fn phone_validate(value: &str) -> Result<(), ValidationError> {
+        phonenumber::parse(None, value).map_err(|error| {
+            let error_message = error.to_string();
+            ValidationError::new("phone").with_message(Cow::from(error_message))
+        })?;
+        Ok(())
+    }
 
     #[derive(Debug, Validate)]
     struct SignupData {
         #[validate(email)]
         mail: String,
-        #[validate(phone)]
+        #[validate(custom(function = "phone_validate"))]
         phone: String,
         #[validate(url)]
         site: String,
