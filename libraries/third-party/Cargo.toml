@@ -10,11 +10,11 @@ edition.workspace = true
 anyhow = { version = "1.0.97", features = ["backtrace"] }
 fake = { version = "4.0.0", features = ["derive"] }
 opentelemetry = "0.23.0"
-opentelemetry-otlp = "0.16.0"
 opentelemetry_sdk = { version = "0.23.0", features = ["rt-tokio"] }
+opentelemetry-otlp = "0.16.0"
 thiserror = "2.0.12"
-tokio = { version = "1.43.0", features = ["full"] }
-tracing = "0.1.40"
+tokio = { version = "1.44.0", features = ["full"] }
+tracing = "0.1.41"
 tracing-opentelemetry = "0.24.0"
 tracing-subscriber = { version = "0.3.19", features = ["json", "env-filter"] }
 
@@ -26,7 +26,7 @@ mockall = "0.13.1"
 phonenumber = "0.3.7"
 proptest = "1.6.0"
 proptest-derive = "0.5.1"
-rstest = "0.22.0"
+rstest = "0.25.0"
 serde = { version = "1.0.218", features = ["derive"] }
 validator = { version = "0.20.0", features = ["derive"] }
 
