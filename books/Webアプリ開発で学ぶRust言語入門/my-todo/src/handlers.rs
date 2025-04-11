@@ -14,7 +14,6 @@ use crate::repositories::{CreateTodo, TodoRepository, UpdateTodo};
 #[derive(Debug)]
 pub struct ValidateJson<T>(T);
 
-#[axum::async_trait]
 impl<T, S> FromRequest<S> for ValidateJson<T>
 where
     T: DeserializeOwned + Validate,

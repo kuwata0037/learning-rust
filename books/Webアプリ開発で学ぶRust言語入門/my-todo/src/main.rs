@@ -52,7 +52,7 @@ fn create_app<T: TodoRepository>(repository: T) -> Router {
             routing::get(all_todos::<T>).post(create_todo::<T>),
         )
         .route(
-            "/todos/:id",
+            "/todos/{id}",
             routing::get(find_todo::<T>)
                 .patch(update_todo::<T>)
                 .delete(delete_todo::<T>),

@@ -4,7 +4,7 @@ use std::{
 };
 
 use anyhow::Context;
-use axum::async_trait;
+use async_trait::async_trait;
 
 use super::{CreateTodo, RepositoryError, Todo, TodoRepository, UpdateTodo};
 
