@@ -2046,9 +2046,9 @@ dependencies = [
 
 [[package]]
 name = "proptest-derive"
-version = "0.5.1"
+version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4ee1c9ac207483d5e7db4940700de86a9aae46ef90c48b57f99fe7edb8345e49"
+checksum = "095a99f75c69734802359b682be8daaf8980296731f6470434ea2c652af1dd30"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2866,9 +2866,9 @@ checksum = "13c2bddecc57b384dee18652358fb23172facb8a2c51ccc10d74c157bdea3292"
 
 [[package]]
 name = "syn"
-version = "2.0.89"
+version = "2.0.101"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "44d46482f1c1c87acd84dea20c1bf5ebff4c757009ed6bf19cfd36fb10e92c4e"
+checksum = "8ce2b7fc941b3a24138a0a7cf8e858bfc6a992e7978a068a5c760deb0ed43caf"
 dependencies = [
  "proc-macro2",
  "quote",
