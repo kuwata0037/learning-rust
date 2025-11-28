@@ -22,7 +22,7 @@ tracing-subscriber = { version = "0.3.20", features = ["json", "env-filter"] }
 config = "0.15.18"
 criterion = "0.7.0"
 dotenvy = "0.15.7"
-mockall = "0.13.1"
+mockall = "0.14.0"
 phonenumber = "0.3.7"
 proptest = "1.8.0"
 proptest-derive = "0.6.0"
