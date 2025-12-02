@@ -20,7 +20,7 @@ tracing-subscriber = { version = "0.3.20", features = ["json", "env-filter"] }
 
 [dev-dependencies]
 config = "0.15.19"
-criterion = "0.7.0"
+criterion = "0.8.0"
 dotenvy = "0.15.7"
 mockall = "0.14.0"
 phonenumber = "0.3.7"
