@@ -24,7 +24,7 @@ criterion = "0.8.1"
 dotenvy = "0.15.7"
 mockall = "0.14.0"
 phonenumber = "0.3.7"
-proptest = "1.9.0"
+proptest = "1.10.0"
 proptest-derive = "0.7.0"
 rstest = "0.26.1"
 serde = { version = "1.0.228", features = ["derive"] }
