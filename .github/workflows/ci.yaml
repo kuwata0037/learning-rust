@@ -31,7 +31,7 @@ jobs:
           tool: cargo-nextest, cargo-llvm-cov
       - name: Run test
         run: cargo llvm-cov nextest --lcov --output-path lcov.info
-      - uses: codecov/codecov-action@v5
+      - uses: codecov/codecov-action@v6
         if: matrix.os == 'ubuntu-latest'
         with:
           files: ./lcov.info
