@@ -26,7 +26,7 @@ jobs:
       - name: Run build
         run: cargo build
       - name: Install test tools
-        uses: taiki-e/install-action@v2.85.5
+        uses: taiki-e/install-action@v2.85.13
         with:
           tool: cargo-nextest, cargo-llvm-cov
       - name: Run test
