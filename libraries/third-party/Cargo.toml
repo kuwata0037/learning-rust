@@ -26,7 +26,7 @@ mockall = "0.15.0"
 phonenumber = "0.3.7"
 proptest = "1.11.0"
 proptest-derive = "0.8.0"
-rstest = "0.26.1"
+rstest = "0.27.0"
 serde = { version = "1.0.228", features = ["derive"] }
 validator = { version = "0.21.0", features = ["derive"] }
 
